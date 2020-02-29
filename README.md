@@ -27,6 +27,8 @@ payload.user_uuid # this is the user's UUID
 Note that the part that is hidden above is the signature private key, without which
 others cannot forge a cookie value.
 
+If the cookie is bad or the keys don't work on it, the `payload` will have value `None`.
+
 ## Development
 
 All development is done inside a docker container.  From your host running Docker, in this directory run:

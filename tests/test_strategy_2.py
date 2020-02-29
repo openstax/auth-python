@@ -16,7 +16,7 @@ SIGNATURE_PUBLIC_KEY = (
     "-----END PUBLIC KEY-----"
 )
 
-def test_decrypts(mocker):
+def test_decrypts_good_cookie(mocker):
     # These "secrets" are copied from local development environment Accounts defaults.
     # They are not used in real deployments.
 
@@ -41,6 +41,35 @@ def test_decrypts(mocker):
     payload = strategy.decrypt(cookie)
 
     assert payload.user_uuid == '1b2dc73a-a792-462b-9b0f-59bd22bac26d'
+
+def test_decrypts_bad_cookie(mocker):
+    cookie = ("badness..here.sdfs.")
+
+    strategy = Strategy2(signature_public_key=SIGNATURE_PUBLIC_KEY,
+                         signature_algorithm="RS256",
+                         encryption_private_key="RvGHVZ/kvzUAA5Z3t68+FNhuMCJxkzv+",
+                         encryption_algorithm="A256GCM",
+                         encryption_method="dir")
+
+    payload = strategy.decrypt(cookie)
+
+    assert payload == None
+
+def test_logs_decryption_error(mocker):
+    log_spy = mocker.patch('logging.exception')
+
+    cookie = ("badness..here.sdfs.")
+
+    strategy = Strategy2(signature_public_key=SIGNATURE_PUBLIC_KEY,
+                         signature_algorithm="RS256",
+                         encryption_private_key="RvGHVZ/kvzUAA5Z3t68+FNhuMCJxkzv+",
+                         encryption_algorithm="A256GCM",
+                         encryption_method="dir",
+                         logging_enabled=True)
+
+    payload = strategy.decrypt(cookie)
+
+    log_spy.assert_called_once()
 
 def test_only_allows_A256GCM(mocker):
     with pytest.raises(ValueError):
