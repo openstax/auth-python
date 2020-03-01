@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/openstax/auth-python.svg?branch=master)](https://travis-ci.org/openstax/auth-python)
 
-A Python package with strategies for reading OpenStax authentication cookies.
+A [Python package](https://pypi.org/project/oxauth) with strategies for reading OpenStax authentication cookies.
 
 ## Usage
 
@@ -56,5 +56,24 @@ import ipdb; ipdb.set_trace()
 
 When running tests with the debugger make sure to use the `-s` option to prevent pytest from capturing output.
 
-`python -m pytest -s tests -k 'test_decrypts'`
+`$> python -m pytest -s tests -k 'test_decrypts'`
 
+Note that `pytest` is also on the `PATH` so you can call it directly.
+
+## Distributing
+
+From within the container, build the distributions:
+
+```
+$> python setup.py sdist bdist_wheel
+```
+
+To upload:
+
+```
+$> python -m twine upload dist/*
+```
+
+## Note on names
+
+We started naming the package `openstax_auth` but there seems to be weirdness in how different parts of the Python tooling replace underscores with hyphens.  We want the package name to be simple and not confusing on `import` so we shortened to `oxauth`.
