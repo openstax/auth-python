@@ -2,7 +2,7 @@ import json
 import pytest
 import ipdb
 
-from openstax_auth import Strategy2
+from oxauth import Strategy2
 
 SIGNATURE_PUBLIC_KEY = (
     "-----BEGIN PUBLIC KEY-----\n"
