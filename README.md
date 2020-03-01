@@ -6,10 +6,10 @@ A [Python package](https://pypi.org/project/oxauth) with strategies for reading 
 
 ## Usage
 
-`pip install openstax_auth`
+`pip install oxauth`
 
 ```python
-from openstax_auth import Strategy2
+from oxauth import Strategy2
 
 strategy = Strategy2(
     signature_public_key="-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"

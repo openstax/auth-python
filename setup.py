@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="oxauth",
-    version="0.0.1",
+    version="0.0.2",
     author="JP Slavinsky",
     author_email="jps@rice.edu",
     description="OpenStax authentication strategies",
