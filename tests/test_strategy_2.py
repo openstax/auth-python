@@ -35,8 +35,8 @@ def test_decrypts_good_cookie(mocker):
     strategy = Strategy2(signature_public_key=SIGNATURE_PUBLIC_KEY,
                          signature_algorithm="RS256",
                          encryption_private_key="RvGHVZ/kvzUAA5Z3t68+FNhuMCJxkzv+",
-                         encryption_algorithm="A256GCM",
-                         encryption_method="dir")
+                         encryption_algorithm="dir",
+                         encryption_method="A256GCM")
 
     payload = strategy.decrypt(cookie)
 
@@ -48,8 +48,8 @@ def test_decrypts_bad_cookie(mocker):
     strategy = Strategy2(signature_public_key=SIGNATURE_PUBLIC_KEY,
                          signature_algorithm="RS256",
                          encryption_private_key="RvGHVZ/kvzUAA5Z3t68+FNhuMCJxkzv+",
-                         encryption_algorithm="A256GCM",
-                         encryption_method="dir")
+                         encryption_algorithm="dir",
+                         encryption_method="A256GCM")
 
     payload = strategy.decrypt(cookie)
 
@@ -63,8 +63,8 @@ def test_logs_decryption_error(mocker):
     strategy = Strategy2(signature_public_key=SIGNATURE_PUBLIC_KEY,
                          signature_algorithm="RS256",
                          encryption_private_key="RvGHVZ/kvzUAA5Z3t68+FNhuMCJxkzv+",
-                         encryption_algorithm="A256GCM",
-                         encryption_method="dir",
+                         encryption_algorithm="dir",
+                         encryption_method="A256GCM",
                          logging_enabled=True)
 
     payload = strategy.decrypt(cookie)
@@ -77,13 +77,13 @@ def test_only_allows_A256GCM(mocker):
                   signature_algorithm="RS256",
                   encryption_private_key="RvGHVZ/kvzUAA5Z3t68+FNhuMCJxkzv+",
                   encryption_algorithm="foo",
-                  encryption_method="dir")
+                  encryption_method="A256GCM")
 
 def test_only_allows_dir(mocker):
     with pytest.raises(ValueError):
         Strategy2(signature_public_key=SIGNATURE_PUBLIC_KEY,
                   signature_algorithm="RS256",
                   encryption_private_key="RvGHVZ/kvzUAA5Z3t68+FNhuMCJxkzv+",
-                  encryption_algorithm="A256GCM",
+                  encryption_algorithm="dir",
                   encryption_method="foo")
 
